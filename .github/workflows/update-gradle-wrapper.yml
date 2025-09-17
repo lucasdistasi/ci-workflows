@@ -1,0 +1,33 @@
+# https://github.com/gradle-update/update-gradle-wrapper-action
+name: Update Gradle Wrapper
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+
+jobs:
+  update-gradle-wrapper:
+    name: Upgrade Gradle Wrapper
+    if: ${{ inputs.branch == 'main' }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update Gradle Wrapper
+        uses: gradle-update/update-gradle-wrapper-action@v2
+        with:
+          reviewers: lucasdistasi
+          labels: |
+            automated pr
+            dependencies
+            gradle-wrapper
+          pr-title-template: "chore(deps): update Gradle Wrapper from %sourceVersion% to %targetVersion% (triggered at ${{ github.event_name }})"
+
