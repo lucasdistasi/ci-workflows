@@ -1,12 +1,18 @@
+# Actions token expires on 01/01/2026
+# To create a new one, go to https://github.com/settings/personal-access-tokens
+# After creating a new one, update the secret ACTIONS_TOKEN in each repository that uses this workflow
+
 name: Build, Test & Publish
 
 on:
   workflow_call:
+    inputs:
+      actions-token:
+        required: true
+        type: string
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -74,3 +80,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build/reports/jacoco/test/html
+          token: ${{ inputs.actions-token }}
