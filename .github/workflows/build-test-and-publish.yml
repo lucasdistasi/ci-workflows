@@ -6,10 +6,10 @@ name: Build, Test & Publish
 
 on:
   workflow_call:
-    #inputs:
-    #  actions-token:
-    #    required: true
-    #    type: string
+    secrets:
+      actions-token:
+        required: true
+        description: PAT secret
 
 permissions:
   contents: read
@@ -80,4 +80,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build/reports/jacoco/test/html
-          #token: ${{ inputs.actions-token }}
+          token: ${{ secrets.actions-token }}
