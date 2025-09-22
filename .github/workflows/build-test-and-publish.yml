@@ -12,7 +12,7 @@ on:
         description: PAT secret
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -80,4 +80,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build/reports/jacoco/test/html
-          token: ${{ secrets.actions-token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
