@@ -6,10 +6,6 @@ on:
       message:
         required: true
         type: string
-      parse_mode:
-        required: false
-        type: string
-        default: "Markdown"
     secrets:
       TELEGRAM_BOT_TOKEN:
         required: true
@@ -27,5 +23,4 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d message_thread_id=${{ secrets.TELEGRAM_TOPIC_ID }} \
-            -d parse_mode=${{ inputs.parse_mode }} \
             -d text="${{ inputs.message }}"
