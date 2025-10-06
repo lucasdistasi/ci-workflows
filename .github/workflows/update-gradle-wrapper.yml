@@ -3,6 +3,10 @@ name: Update Gradle Wrapper
 
 on:
   workflow_call:
+    secrets:
+      pat-token:
+        required: true
+        description: PAT secret
     inputs:
       branch:
         required: true
@@ -25,5 +29,6 @@ jobs:
             automated pr
             dependencies
             gradle-wrapper
-          pr-title-template: "chore(deps): update Gradle Wrapper from %sourceVersion% to %targetVersion% (triggered at ${{ github.event_name }})"
-
+          pr-title-template: "chore(deps): Update Gradle Wrapper"
+          pr-message-template: 'Update Gradle Wrapper from %sourceVersion% to %targetVersion% (triggered at ${{ github.event_name }})'
+          repo-token: ${{ secrets.pat-token }}
