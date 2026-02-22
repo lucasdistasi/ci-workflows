@@ -1,4 +1,4 @@
-name: Build, Test & Publish
+name: Check, Test & Publish
 
 on:
   workflow_call:
@@ -7,10 +7,9 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build
+  check-and-test:
+    name: Check and Test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -21,25 +20,11 @@ jobs:
           java-version: 25
           distribution: 'temurin'
 
-      - name: Build with Gradle
-        run: ./gradlew build -x test
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up JDK 25
-        uses: actions/setup-java@v5
-        with:
-          java-version: 25
-          distribution: 'temurin'
-
-      - name: Run tests with JaCoCo
-        run: ./gradlew test jacocoTestReport
+      - name: Check, run tests and generate JaCoCo report
+        run: ./gradlew check jacocoTestReport --no-daemon
 
       - name: Upload JaCoCo report
         uses: actions/upload-artifact@v6.0.0
@@ -50,12 +35,8 @@ jobs:
   publish:
     name: Publish Code Coverage
     runs-on: ubuntu-latest
-    needs: test
-
+    needs: check-and-test
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
       - name: Download JaCoCo report
         uses: actions/download-artifact@v7
         with:
