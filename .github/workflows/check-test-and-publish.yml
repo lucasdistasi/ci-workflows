@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew check jacocoTestReport --no-daemon
 
       - name: Upload JaCoCo report
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: jacoco-report
           path: build/reports/jacoco/test
