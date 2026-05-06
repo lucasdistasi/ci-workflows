@@ -4,13 +4,14 @@
 
 Runs `./gradlew build -x test` and `./gradlew test`
 
-* update-gradle-wrapper.yml
-
-Updates Gradle Wrapper version.
-
 * build-test-and-publish.yml
 
 Runs `./gradlew build -x test` and `./gradlew test` and then it publishes to gh-pages the code coverage.  
-It requires a token that will expire on 01/01/2026.  
-To create a new one, go to [PAT](https://github.com/settings/personal-access-tokens).  
-After creating a new one, update the secret `ACTIONS_TOKEN` in each repository that uses this workflow.
+
+* check-and-test.yml
+
+Runs `./gradlew check` using JDK 25. Used for Gradle-based projects to perform checks and tests.
+
+* check-and-test-node.yml
+
+Runs `pnpm install`, `pnpm lint`, `pnpm test --if-present`, and `pnpm build` using Node.js 24 and pnpm 10.33.3. Used for Node.js projects.
