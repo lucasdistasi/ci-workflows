@@ -14,4 +14,4 @@ Runs `./gradlew check` using JDK 25. Used for Gradle-based projects to perform c
 
 * check-and-test-node.yml
 
-Runs `pnpm install`, `pnpm lint`, `pnpm --if-present test`, and `pnpm build` using Node.js 24 and pnpm 11.0.9. Used for Node.js projects.
+Runs `pnpm install`, `pnpm lint`, `pnpm --if-present test`, `pnpm --if-present test:e2e`, and `pnpm build` using Node.js 24 and pnpm 11.0.9. Used for Node.js projects. The e2e step is skipped automatically for services that don't define a `test:e2e` script.
