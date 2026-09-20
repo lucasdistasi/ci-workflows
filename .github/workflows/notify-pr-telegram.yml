@@ -1,0 +1,31 @@
+name: Notify PR by Telegram
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  notify-by-telegram:
+    name: Notify by Telegram
+    if: github.actor != 'lucasdistasi'
+    uses: ./.github/workflows/send-telegram-message.yml
+    secrets:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_GH_PR_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_TOPIC_ID: ${{ secrets.TELEGRAM_GH_PR_TOPIC_ID }}
+    with:
+      message: |
+        🚀 ${{ github.event.repository.name }}
+
+        📝 ${{ github.event.pull_request.title }}
+
+        👤 ${{ github.actor }}
+
+        📅 ${{ github.event.pull_request.created_at }}
+
+        🔀 ${{ github.event.pull_request.base.ref }} <- ${{ github.event.pull_request.head.ref }}
+
+        🔗 ${{ github.event.pull_request.html_url }}
