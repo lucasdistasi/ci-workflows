@@ -9,7 +9,7 @@ permissions:
 jobs:
   check-and-test:
     name: Check and Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -34,7 +34,7 @@ jobs:
 
   publish:
     name: Publish Code Coverage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: check-and-test
     steps:
       - name: Download JaCoCo report
